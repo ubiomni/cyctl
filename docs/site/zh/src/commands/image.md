@@ -260,8 +260,6 @@ cyctl cluster run 192.168.1.100:5000/cycore/kubernetes:v1.35.3 \
 
 ## 推送 rootfs 镜像到 ghcr.io（公开分发）
 
-GitHub Container Registry (ghcr.io) 适合公开分发 rootfs 镜像，任何人可匿名拉取。
-
 ```bash
 # 1. 构建 rootfs
 cyctl image build-rootfs --k8s-version v1.35.3 --arch amd64 --addon calico
@@ -272,30 +270,17 @@ cyctl image load --input ./kubernetes-v1.35.3-amd64.tar
 # 3. tag 到 ghcr.io
 cyctl image tag cycore/kubernetes:v1.35.3 ghcr.io/ubiomni/kubernetes:v1.35.3
 
-# 4. 登录 ghcr.io（需要 GitHub Personal Access Token，权限需包含 write:packages）
+# 4. 登录 ghcr.io
 cyctl image login ghcr.io --username <github-username> --password <ghp_xxx>
 
 # 5. 推送
 cyctl image push ghcr.io/ubiomni/kubernetes:v1.35.3
 ```
 
-**设置为公开访问：**
-
-ghcr.io 新推送的 package 默认为 **Private**，匿名用户无法拉取。需要手动设置为 Public：
-
-1. 打开 https://github.com/orgs/ubiomni/packages/container/kubernetes/settings
-2. 找到 Danger Zone → Change visibility → 选择 **Public**
-
-设置一次即可，后续推送新 tag 会自动继承 Public 状态。
-
-**GitHub Personal Access Token 获取方式：**
-
-1. 打开 https://github.com/settings/tokens
-2. Generate new token (classic)
-3. 勾选 `write:packages` 权限
-4. 生成后复制 token（格式为 `ghp_xxxx`）
-
-> ghcr.io 使用 OAuth2 Bearer token 认证，`cyctl image login` 会自动处理 token 交换流程。
+> 推送后可在 `cyctl cluster run` 中直接引用远程镜像：
+> ```bash
+> cyctl cluster run ghcr.io/ubiomni/kubernetes:v1.35.3 -m <MASTER_IP> -k ~/.ssh/id_ed25519
+> ```
 
 ## `image save` / `load`
 

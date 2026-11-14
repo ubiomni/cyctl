@@ -125,33 +125,30 @@ Key dependency relationships:
 | nessie | postgresql | JDBC connection for catalog storage |
 | alluxio | rustfs | S3 endpoint for object storage |
 
-### Default Credentials
+### Credentials
 
-All middleware components ship with default passwords that should be changed in production:
+All middleware component passwords are **auto-generated** at install time and saved to `~/.cycore/component-secrets.env`. Use `--set` to override.
 
-| Component | Variable | Default Value | Override |
-|-----------|----------|---------------|---------|
-| MySQL | `mysql_root_password` | `CycoreMySQL2026` | `--set mysql_root_password=XXX` |
-| Redis | `redis_password` | `CycoreRedis2026` | `--set redis_password=XXX` |
-| PostgreSQL | `postgresql_password` | `CycorePostgres2026` | `--set postgresql_password=XXX` |
-| Grafana | `grafana_admin_password` | `CycoreAdmin2026` | `--set grafana_admin_password=XXX` |
-| RustFS | `access_key` / `secret_key` | `cycoreadmin` / `CycoreRustFS2026` | `--set access_key=XXX --set secret_key=XXX` |
-| Nessie | `nessie_db_password` | `NessieDB2026` | `--set nessie_db_password=XXX` |
+| Component | Variable | Override |
+|-----------|----------|---------|
+| MySQL | `mysql_root_password` | `--set mysql_root_password=XXX` |
+| Redis | `redis_password` | `--set redis_password=XXX` |
+| PostgreSQL | `postgresql_password` | `--set postgresql_password=XXX` |
+| Grafana | `grafana_admin_password` | `--set grafana_admin_password=XXX` |
+| RustFS | `rustfs_access_key` / `rustfs_secret_key` | `--set rustfs_secret_key=XXX` |
+| Nessie | `nessie_db_password` | `--set nessie_db_password=XXX` |
 
-To view the current password for a running component, read it from the Kubernetes Secret:
+To view the current password for a running component:
 
 ```bash
-# MySQL
+# From local secrets file
+cat ~/.cycore/component-secrets.env
+
+# From Kubernetes Secret
 kubectl -n middleware get secret mysql -o jsonpath='{.data.root-password}' | base64 -d
-
-# Redis
 kubectl -n middleware get secret redis -o jsonpath='{.data.redis-password}' | base64 -d
-
-# Grafana
 kubectl -n monitoring get secret prometheus-grafana \
   -o jsonpath='{.data.admin-password}' | base64 -d
-
-# RustFS
 kubectl -n middleware get secret rustfs-secret \
   -o jsonpath='{.data.secret_key}' | base64 -d
 ```

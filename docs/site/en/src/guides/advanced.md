@@ -335,28 +335,30 @@ Distributed-mode components deploy across multiple nodes, so `--node-selector` b
 
 ## Component Password Configuration
 
-All middleware components have default passwords that can be overridden at install time with `--set`.
+All middleware component passwords are **auto-generated** (24-character random values) at install time and saved to `~/.cycore/component-secrets.env`. Use `--set` to override.
 
-### Default Passwords
+> Shared variables (e.g., `rustfs_secret_key`) are automatically reused across components that depend on them.
+
+### Password Variables
 
 | Component | Variable | Default |
 |-----------|----------|---------|
-| MySQL | `mysql_root_password` | `CycoreMySQL2026` |
-| Redis | `redis_password` | `CycoreRedis2026` |
-| PostgreSQL | `postgresql_password` | `CycorePostgres2026` |
-| Grafana | `grafana_admin_password` | `CycoreAdmin2026` |
-| RustFS | `rustfs_access_key` | `cycoreadmin` |
-| RustFS | `rustfs_secret_key` | `CycoreRustFS2026` |
-| Nessie | `nessie_db_password` | `NessieDB2026` |
+| MySQL | `mysql_root_password` | Auto-generated |
+| Redis | `redis_password` | Auto-generated |
+| PostgreSQL | `postgresql_password` | Auto-generated |
+| Grafana | `grafana_admin_password` | Auto-generated |
+| RustFS | `rustfs_access_key` | Auto-generated |
+| RustFS | `rustfs_secret_key` | Auto-generated |
+| Nessie | `nessie_db_password` | Auto-generated |
 
 ### Override at Install Time
 
 ```bash
 cyctl component install redis,mysql,rustfs \
   --package /tmp/offline-pkg \
-  --set mysql_root_password=MySQL@2026 \
-  --set redis_password=Redis@2026 \
-  --set rustfs_secret_key=RustFS@2026
+  --set mysql_root_password=MySQL@Prod \
+  --set redis_password=Redis@Prod \
+  --set rustfs_secret_key=RustFS@Prod
 ```
 
 ### Update Passwords on Running Components
