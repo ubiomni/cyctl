@@ -14,15 +14,17 @@ cyctl cluster run myregistry.com:4000/kubernetes:v1.35.3 \
 
 对于 HTTP 协议的私有仓库（如 `http://192.168.1.100:5000/`），需要额外配置 containerd 允许 HTTP 访问。
 
-#### 方法一：部署时通过 --registry-* 参数自动配置（推荐）
+#### 方法一：部署时通过 --registry 参数自动配置（推荐）
 
-`cluster run` 支持通过 `--registry-domain/port/scheme` 在部署时自动配置所有节点的 containerd registry mirror：
+`cluster run` 支持通过 `--registry` 在部署时自动配置所有节点的 containerd registry mirror：
 
 ```bash
 cyctl cluster run ./kubernetes-v1.35.3-amd64.tar \
   -m 10.0.0.1 -n 10.0.0.11 -p xxx \
-  --registry-domain 192.168.1.100 --registry-port 30077 --registry-scheme http
+  --registry http://192.168.1.100:30077
 ```
+
+> `--registry` 合并了原来的 `--registry-domain`、`--registry-port`、`--registry-scheme` 三个参数（旧参数仍可用）。支持带认证：`--registry http://user:pass@192.168.1.100:30077`
 
 这会在所有节点上自动创建 `/etc/containerd/certs.d/192.168.1.100:5000/hosts.toml` 配置。
 
@@ -184,7 +186,7 @@ cyctl cluster run cycore/kubernetes:v1.35.3 \
   -m 10.0.0.1,10.0.0.2,10.0.0.3 \
   -n 10.0.0.11,10.0.0.12 \
   -p xxx \
-  --registry-domain 192.168.1.100 --registry-port 30077 --registry-scheme http
+  --registry http://192.168.1.100:30077
 
 # 2. 如果 registry 需要认证，额外在所有节点配置
 cyctl remote exec -c default -p xxx --role all -- '
