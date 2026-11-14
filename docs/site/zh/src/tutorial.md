@@ -6,9 +6,9 @@
 
 | 阶段 | 内容 | 结束状态 |
 |------|------|---------|
-| 一 | 构建镜像，启动最小集群 | `kubectl get nodes` 全部 Ready |
-| 二 | 打包并安装基础组件 | 存储、中间件、监控 Pod 全部 Running |
-| 三 | 分布式部署与数据平台 | 数据平台 Pod 全部 Running |
+| 一 | 构建镜像，启动最小集群 | 节点全部 Ready |
+| 二 | 打包并安装基础组件 | 存储、中间件、监控就绪 |
+| 三 | 构建 AI 就绪环境 | 训练、推理、数据管线全部可用 |
 
 ---
 
@@ -51,11 +51,17 @@ cyctl image push <REGISTRY>/kubernetes:v1.35.3
 
 ### 1.3 启动最小集群
 
-登录目标服务器，一条命令启动集群：
+`cyctl cluster run` 支持两种镜像来源：本地 tar 文件或远程仓库引用。使用远程引用时 cyctl 会自动拉取镜像。
 
 ```bash
-# 单 master
+# 从本地 tar 启动（适合离线环境）
 cyctl cluster run ./kubernetes-v1.35.3-amd64.tar \
+  -m <MASTER_IP> \
+  -k ~/.ssh/id_ed25519 \
+  --registry http://<REGISTRY_IP>:<PORT>
+
+# 从远程仓库拉取启动
+cyctl cluster run ghcr.io/ubiomni/kubernetes:v1.35.3-amd64 \
   -m <MASTER_IP> \
   -k ~/.ssh/id_ed25519
 
@@ -169,7 +175,7 @@ kubectl top nodes
 
 ---
 
-## 阶段三：分布式部署与数据平台
+## 阶段三：构建 AI 就绪环境
 
 ### 3.1 分布式存储与监控
 
@@ -201,7 +207,7 @@ cyctl component install prometheus,prometheus-adapter,loki,alloy \
 | rustfs | 单节点 | 多节点 |
 | alluxio | 单机 | 高可用模式 |
 
-### 3.2 数据平台
+### 3.2 AI 数据管线
 
 ```bash
 # 前置：Nessie 依赖 PostgreSQL

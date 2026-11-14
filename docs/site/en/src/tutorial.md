@@ -7,8 +7,8 @@ Three phases:
 | Phase | Content | End State |
 |-------|---------|-----------|
 | 1 | Build image, deploy minimal cluster | All nodes Ready |
-| 2 | Pack and install base components | Storage, middleware, monitoring Pods Running |
-| 3 | Distributed deployment and data platform | Data platform Pods Running |
+| 2 | Pack and install base components | Storage, middleware, monitoring ready |
+| 3 | Build AI-ready environment | Training, inference, data pipelines operational |
 
 ---
 
@@ -50,11 +50,17 @@ cyctl image push <REGISTRY>/kubernetes:v1.35.3
 
 ### 1.3 Deploy the Cluster
 
-On the target server, deploy with a single command:
+`cyctl cluster run` accepts two image sources: a local tar file or a remote registry reference. When using a remote reference, cyctl pulls the image automatically.
 
 ```bash
-# Single master
+# From local tar (for air-gapped environments)
 cyctl cluster run ./kubernetes-v1.35.3-amd64.tar \
+  -m <MASTER_IP> \
+  -k ~/.ssh/id_ed25519 \
+  --registry http://<REGISTRY_IP>:<PORT>
+
+# From remote registry (auto-pull)
+cyctl cluster run ghcr.io/ubiomni/kubernetes:v1.35.3-amd64 \
   -m <MASTER_IP> \
   -k ~/.ssh/id_ed25519
 
@@ -168,7 +174,7 @@ kubectl top nodes
 
 ---
 
-## Phase 3: Distributed Deployment and Data Platform
+## Phase 3: Build AI-Ready Environment
 
 ### 3.1 Distributed Storage and Monitoring
 
@@ -200,7 +206,7 @@ cyctl component install prometheus,prometheus-adapter,loki,alloy \
 | rustfs | Single node | Multi-node |
 | alluxio | Standalone | HA mode |
 
-### 3.2 Data Platform
+### 3.2 AI Data Pipelines
 
 ```bash
 # Prerequisite: Nessie depends on PostgreSQL
