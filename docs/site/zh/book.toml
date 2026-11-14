@@ -8,4 +8,4 @@ default-theme = "light"
 preferred-dark-theme = "navy"
 git-repository-url = "https://github.com/ubiomni/cyctl"
 additional-css = ["../custom.css"]
-additional-js = ["../lang-switch.js"]
+additional-js = ["../lang-switch.js", "../umami.js"]
