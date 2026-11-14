@@ -3,7 +3,8 @@
 [![Release](https://img.shields.io/github/v/release/ubiomni/cyctl)](https://github.com/ubiomni/cyctl/releases)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 
-Standalone Kubernetes cluster lifecycle management CLI. Single binary, no dependencies, fully offline capable.
+**cyctl — From bare metal to AI-ready, in minutes**
+One binary · Full stack · Fully offline
 
 [Documentation](https://ubiomni.github.io/cyctl) | [中文文档](https://ubiomni.github.io/cyctl/zh/)
 
