@@ -15,8 +15,6 @@ All cyctl subcommands inherit the following global options.
 |----------|-------------|
 | `CYCORE_OUTPUT` | Default output format (`json` or `table`) |
 | `CYCORE_DATA_DIR` | Data directory path |
-| `CYCORE_API_URL` | API server URL |
-| `CYCORE_TOKEN` | API authentication token |
 | `RUST_LOG` | Log level, e.g., `cycore=debug`, `cycore=trace` |
 
 ## Examples

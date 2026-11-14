@@ -13,10 +13,6 @@
 |------|------|
 | `CYCORE_OUTPUT` | 默认输出格式，值为 `json` 或 `table` |
 | `CYCORE_DATA_DIR` | 数据目录 |
-| `CYCORE_API_URL` | API 服务端地址 |
-| `CYCORE_TOKEN` | API 认证 token |
-| `CYCORE_USER_ID` | 用户 ID |
-| `CYCORE_TEAM_ID` | 团队 ID |
 | `RUST_LOG` | 日志级别，如 `cycore=debug`, `cycore=trace` |
 
 示例：
