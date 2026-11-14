@@ -1,0 +1,23 @@
+.language-switch {
+    position: fixed;
+    top: 10px;
+    right: 80px;
+    z-index: 1000;
+    font-size: 0.9em;
+}
+.language-switch a {
+    padding: 4px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-left: 4px;
+    color: inherit;
+}
+.language-switch a:hover {
+    background: #e8e8e8;
+}
+.language-switch a.active {
+    background: #3884ff;
+    color: white;
+    border-color: #3884ff;
+}

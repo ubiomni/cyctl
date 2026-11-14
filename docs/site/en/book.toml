@@ -1,0 +1,10 @@
+[book]
+title = "cyctl - Kubernetes Cluster Lifecycle Management"
+language = "en"
+src = "src"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+git-repository-url = "https://github.com/ubiomni/cyctl"
+additional-css = ["../custom.css"]
