@@ -6,7 +6,7 @@
 **cyctl — From bare metal to AI-ready, in minutes**
 One binary · Full stack · Fully offline
 
-[Documentation](https://ubiomni.github.io/cyctl) | [中文文档](https://ubiomni.github.io/cyctl/zh/)
+[Documentation](https://ubiomni.github.io/cyctl) | [中文文档](https://ubiomni.github.io/cyctl/zh/) | [Mirror](https://ubiomni.com/cyctl/)
 
 ## Features
 
@@ -79,10 +79,12 @@ cyctl completion fish > ~/.config/fish/completions/cyctl.fish
 
 ## Documentation
 
-Full documentation is available at [ubiomni.github.io/cyctl](https://ubiomni.github.io/cyctl).
+Full documentation is available at [ubiomni.github.io/cyctl](https://ubiomni.github.io/cyctl) or the mirror at [ubiomni.com/cyctl](https://ubiomni.com/cyctl/).
 
-- [English Documentation](https://ubiomni.github.io/cyctl/en/)
-- [中文文档](https://ubiomni.github.io/cyctl/zh/)
+| Language | GitHub Pages | Mirror |
+|----------|-------------|--------|
+| English | [ubiomni.github.io/cyctl/en/](https://ubiomni.github.io/cyctl/en/) | [ubiomni.com/cyctl/en/](https://ubiomni.com/cyctl/en/) |
+| 中文 | [ubiomni.github.io/cyctl/zh/](https://ubiomni.github.io/cyctl/zh/) | [ubiomni.com/cyctl/zh/](https://ubiomni.com/cyctl/zh/) |
 
 ## License
 
